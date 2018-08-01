@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'rake'
+require 'json'
 
-namespace :hdm do
+namespace :profile do
   desc 'Manual Import of FHIR resources'
   task :import_fhir, %i[profile_id provider_id file] => :environment do |_t, args|
     bundle_json = File.open(args.file, 'r:UTF-8').read
@@ -21,16 +22,37 @@ namespace :hdm do
   task :load, %i[file] => :environment do |_t, args|
     bundle_json = File.open(args.file, 'r:UTF-8').read
     users = User.all.to_a
-
     providers = Provider.all.to_a
     user_indx = 0
     profile_indx = 0
     provider_indx = 0
 
-    if users.empty?
-      puts 'There are no users in the system, please add a user before continuing'
-      return
-    elsif users.length > 1
+    user_first_name = 'A'
+    user_last_name = 'A'
+    json_format = JSON.parse(bundle_json)
+    json_format['entry'].each do |entry|
+      if entry.key?('resource')
+        if entry['resource'].key?('name')
+          if entry['resource']['name'].length > 0
+            if entry['resource']['name'][0].key?('family')
+              user_last_name = entry['resource']['name'][0]['family']
+            end
+
+            if entry['resource']['name'][0].key?('given')
+              if entry['resource']['name'][0]['given'].length > 0
+                  user_first_name = entry['resource']['name'][0]['given'][0]
+                  break
+              end
+            end
+          end
+        end
+      end
+    end
+    user_email = user_first_name + "_" + user_last_name[0] + "@gmail.com"
+    user_password = 'Password123'
+    User.create(first_name: user_first_name, last_name: user_last_name, email: user_email, password: user_password)
+
+    if users.length > 1
       puts 'Select which user you want to load the data for '
       users.each_with_index { |u, i| puts "#{i}. #{u.email}" }
       user_indx = STDIN.gets.chomp.to_i

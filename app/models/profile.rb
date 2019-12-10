@@ -30,6 +30,8 @@ class Profile < ApplicationRecord
   # resources are the raw resources that are created from transactions, they
   # do not equate to the currated data models resources
   has_many :resources
+  # These are the non-FHIR documents uploaded by the user
+  has_many :uploaded_documents
 
   def has_provider?(provider_id)
     return false if provider_id.nil?

@@ -4,4 +4,12 @@
 class UploadedDocument < ApplicationRecord
   belongs_to :profile
   has_one_attached :document
+
+  def as_json(*args)
+    json = super
+    if document.attached?
+      json[:filename] = document.filename
+    end
+    json
+  end
 end

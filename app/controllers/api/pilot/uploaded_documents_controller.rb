@@ -25,9 +25,11 @@ module Api
       # GET /api/pilot/uploaded_documents/1/download
       def download
         # First, make sure that the current active user is allowed to do this
-        return render json: { 'error': 'Invalid profile for current access token' }, status: :forbidden unless profile_owned_by_current_user?(@uploaded_document.profile)
+        unless profile_owned_by_current_user?(@uploaded_document.profile)
+          return render json: { 'error': 'Invalid profile for current access token' }, status: :forbidden
+        end
 
-        redirect_to rails_blob_path(@uploaded_document.document, disposition: "attachment")
+        redirect_to rails_blob_path(@uploaded_document.document, disposition: 'attachment')
       end
 
       # POST /api/pilot/uploaded_documents

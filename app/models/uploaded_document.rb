@@ -7,9 +7,7 @@ class UploadedDocument < ApplicationRecord
 
   def as_json(*args)
     json = super
-    if document.attached?
-      json[:filename] = document.filename
-    end
+    json[:filename] = document.filename if document.attached?
     json
   end
 end

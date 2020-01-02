@@ -42,7 +42,11 @@ Rails.application.routes.draw do
     namespace :pilot do
       # The uploaded documents resource current exists outside of the main API
       # Currently they can't be updated, but can be created, read, and deleted.
-      resources :uploaded_documents, except: %i[edit update]
+      resources :uploaded_documents, except: %i[edit update] do
+        member do
+          get 'download'
+        end
+      end
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

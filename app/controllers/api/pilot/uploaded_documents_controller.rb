@@ -3,7 +3,7 @@
 module Api
   module Pilot
     class UploadedDocumentsController < ApplicationController
-      before_action :set_uploaded_document, only: %i[show destroy]
+      before_action :set_uploaded_document, only: %i[show download destroy]
 
       # GET /api/pilot/uploaded_documents
       def index
@@ -20,6 +20,14 @@ module Api
       # This is kept to download metadata
       def show
         render json: @uploaded_document
+      end
+
+      # GET /api/pilot/uploaded_documents/1/download
+      def download
+        # First, make sure that the current active user is allowed to do this
+        return render json: { 'error': 'Invalid profile for current access token' }, status: :forbidden unless profile_owned_by_current_user?(@uploaded_document.profile)
+
+        redirect_to rails_blob_path(@uploaded_document.document, disposition: "attachment")
       end
 
       # POST /api/pilot/uploaded_documents

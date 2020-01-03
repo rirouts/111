@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
 harrys_profile:
   patient_id: bc4b3cbe-9292-4098-a34a-8c60b4cd4246
   name: myself
@@ -28,8 +24,7 @@ jills_profile:
   last_name: Sotired
   gender: female
   user: harry
-# column: value
-#
+
 semas_profile:
   patient_id: 5b14691a-d9fe-4a34-b094-e09d7da8d15e
   name: Sema Vermacilli
@@ -40,13 +35,9 @@ semas_profile:
 
 
 smart_sandbox:
-    patient_id: 5b14691a-d9fe-4a34-b094-e09d7da8d15e
-    name: who
-    first_name: who
-    last_name: dat
-    gender: male
-    user: smart_sandbox
-
-
-
-# column: value
+  patient_id: 5b14691a-d9fe-4a34-b094-e09d7da8d15e
+  name: who
+  first_name: who
+  last_name: dat
+  gender: male
+  user: smart_sandbox

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<!--
+    This is a simple test client for the document upload feature.
+-->
+
+<html>
+    <head><title>Test PDM Client</title></head>
+    <body>
+        <h1>Test Client</h1>
+        <p>This is a simple test client.</p>
+        <div id="login">
+            <form method="POST" action="">
+                <table>
+                    <tr><th>Email</th><td><input type="text" name="email"></td></tr>
+                    <tr><th>Password</th><td><input type="password" name="password"></td></th></tr>
+                    <tr><td></td><td><input type="submit" disabled="disabled"></td></tr>
+                </table>
+            </form>
+        </div>
+        <div id="profile-list" style="display: none">
+            <h1>Available Profiles</h1>
+            <p>Please choose a profile to use:</p>
+            <div class="profiles"></div>
+        </div>
+        <div id="file-upload" style="display: none">
+            <h1>Uploaded Documents</h1>
+            <div id="upload-list"></div>
+            <h2>Upload new document</h2>
+            <form method="POST" action="/api/pilot/uploaded_documents" enctype="multipart/form-data">
+                <input type="hidden" name="profile_id">
+                <input type="hidden" name="accept_token">
+                File: <input type="file" name="document"> <input type="submit" value="Upload">
+            </form>
+        </div>
+        <script type="application/javascript" src="test_upload.js"></script>
+    </body>
+</html>

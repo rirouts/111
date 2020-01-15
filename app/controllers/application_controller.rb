@@ -19,6 +19,14 @@ class ApplicationController < ActionController::API
     User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 
+  # Checks to make sure a given profile belongs to the current user
+  def profile_owned_by_current_user?(profile)
+    user = current_resource_owner
+    return false if user.nil?
+
+    profile.user_id == user.id
+  end
+
   # Function to update the audit log as new events occur in a user's account.
   def update_log
     recorded_user = begin

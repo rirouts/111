@@ -7,7 +7,7 @@ class CuratedModelTest < ActiveSupport::TestCase
   test 'Can create new resources' do
     p = profiles(:harrys_profile)
     types = [AllergyIntolerance, CarePlan, Condition, Device, Encounter, Goal,
-             Immunization, MedicationAdministration, MedicationRequest, MedicationStatement,
+             Immunization, MedicationAdministration, MedicationOrder, MedicationStatement,
              Observation, Procedure, ExplanationOfBenefit, Claim]
     types.each do |type|
       puts "Testing create #{type}"
@@ -26,7 +26,7 @@ class CuratedModelTest < ActiveSupport::TestCase
     assert_equal p.encounters.length, 1
     assert_equal p.immunizations.length, 1
     assert_equal p.medication_administrations.length, 1
-    assert_equal p.medication_requests.length, 1
+    assert_equal p.medication_orders.length, 1
     assert_equal p.medication_statements.length, 1
     assert_equal p.observations.length, 1
   end
@@ -34,7 +34,7 @@ class CuratedModelTest < ActiveSupport::TestCase
   test 'Should validate resource for wrong type' do
     p = profiles(:harrys_profile)
     types = [AllergyIntolerance, CarePlan, Condition, Device, Encounter, Goal,
-             Immunization, MedicationAdministration, MedicationRequest, MedicationStatement,
+             Immunization, MedicationAdministration, MedicationOrder, MedicationStatement,
              Observation, Procedure, ExplanationOfBenefit, Claim]
     types.each do |type|
       puts "Testing resourceType #{type}"

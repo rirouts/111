@@ -16,7 +16,7 @@ class HDM::Merge::MergerTest < ActiveSupport::TestCase
     assert_equal profile.encounters.length, 0
     assert_equal profile.immunizations.length, 0
     assert_equal profile.medication_administrations.length, 0
-    assert_equal profile.medication_requests.length, 0
+    assert_equal profile.medication_orders.length, 0
     assert_equal profile.medication_statements.length, 0
     assert_equal profile.observations.length, 0
     merger = HDM::Merge::Merger.new
@@ -32,7 +32,7 @@ class HDM::Merge::MergerTest < ActiveSupport::TestCase
     assert_equal profile.encounters.length, 1
     assert_equal profile.immunizations.length, 1
     assert_equal profile.medication_administrations.length, 1
-    assert_equal profile.medication_requests.length, 1
+    assert_equal profile.medication_orders.length, 1
     assert_equal profile.medication_statements.length, 1
     assert_equal profile.observations.length, 1
   end
@@ -83,7 +83,7 @@ class HDM::Merge::MergerTest < ActiveSupport::TestCase
     dr = DataReceipt.new(profile: profile, provider: provider, data: {}, data_type: 'fhir')
     dr.save
     types = [AllergyIntolerance, Device, CarePlan, Condition, Encounter, Goal,
-             Immunization, MedicationAdministration, MedicationRequest, MedicationStatement,
+             Immunization, MedicationAdministration, MedicationOrder, MedicationStatement,
              Observation, Procedure]
     types.each do |type|
       snake = type.name.underscore

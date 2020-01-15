@@ -26,8 +26,9 @@ module ResourceTestHelper
     end
   end
 
+  # Reads a test file from the fixtures data.
   def read_test_file(file)
-    File.read(File.join('./test/fixtures/files', file))
+    File.read(File.join('./test/fixtures/dstu2_files', file))
   end
 
   def parse_test_file(file)

@@ -4,12 +4,12 @@ require 'test_helper'
 
 class HDM::Client::SmartClientTest < ActiveSupport::TestCase
   def load_bundle(name)
-    File.read(File.join(__dir__, "../../../../fixtures/files/bundles/#{name}.json"))
+    File.read(File.join(__dir__, "../../../../fixtures/dstu2_files/bundles/#{name}.json"))
   end
 
   test 'should be able to generate auth redirection url for clients' do
     # mock the meta data endpoint
-    fake_body = File.read(File.join(__dir__, '../../../../fixtures/files/ouath_capability_statement.json'))
+    fake_body = File.read(File.join(__dir__, '../../../../fixtures/dstu2_files/ouath_capability_statement.json'))
     FakeWeb.register_uri(:any, %r{http://partners.com/}, body: fake_body, content_type: 'application/json')
     p = profile_providers(:harry_partners)
     bc = HDM::Client::SmartClient.new(p.provider)
@@ -59,7 +59,7 @@ class HDM::Client::SmartClientTest < ActiveSupport::TestCase
   end
 
   test 'should be able to sync data' do
-    fake_body = File.read(File.join(__dir__, '../../../../fixtures/files/ouath_capability_statement.json'))
+    fake_body = File.read(File.join(__dir__, '../../../../fixtures/dstu2_files/ouath_capability_statement.json'))
     FakeWeb.register_uri(:post, %r{http://partners.com/oauth/token}, body: { access_token: 'new token', expires_in: 3600 }.to_json, content_type: 'application/json')
     FakeWeb.register_uri(:get, %r{http://partners.com/smart/metadata}, body: fake_body, content_type: 'application/json')
     FakeWeb.register_uri(:get, %r{http://partners.com/smart/Observation}, body: load_bundle('search-set'), content_type: 'application/json')

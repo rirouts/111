@@ -19,7 +19,7 @@ module Api
       test 'should create uploaded_document' do
         assert_difference('UploadedDocument.count') do
           # Upload a document.
-          document = fixture_file_upload('files/uploaded_documents/document.txt')
+          document = fixture_file_upload('dstu2_files/uploaded_documents/document.txt')
           post api_pilot_uploaded_documents_url, params:
           {
             uploaded_document: { profile_id: @profile.to_param, document: document },

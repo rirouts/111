@@ -6,7 +6,7 @@ module HDM
       MATCH_THRESHOLD = 0.8
       NON_COMPARABLE_PATHS = %w[url system id _id text reference resourcetype meta].freeze
       FLOAT_TOLERANCE = 0.0001
-      DATETIME_REGEX = Regexp.new(FHIR::PRIMITIVES['dateTime']['regex']).freeze
+      DATETIME_REGEX = Regexp.new(FHIR::DSTU2::PRIMITIVES['dateTime']['regex']).freeze
 
       # the set of fields for which a match on this field is required to be a match overall
       # for starters we just use dates, i.e., if 2 objects have different dates they necessarily do not match
@@ -15,13 +15,14 @@ module HDM
       def self.match(resource, relationship)
         # resource: new incoming resource
         # relationship: existing list of resources to compare against
-
         # note that ptmerge returns the first match found, rather than all matches
         potential_matches = relationship.map { |r| score_match(resource, r.fhir_model) }
         potential_matches.find { |pm| pm[:score] && pm[:score] >= MATCH_THRESHOLD }
       end
 
       def self.deconflict(resource, match)
+        fhir_manager = FhirUtilities.new
+        fhir = fhir_manager.fhir
         # resource: new incoming resource
         # matches: existing resource that matched with some %
         conflict_paths = find_conflict_paths(match)
@@ -32,12 +33,11 @@ module HDM
         source = match[:right]
 
         issue = create_issue(source.resourceType, source.id, 'Resource', resource.id, conflict_paths)
-        FHIR::OperationOutcome.new(issue: [issue])
+        fhir::OperationOutcome.new(issue: [issue])
       end
 
       def self.score_match(left, right)
         left_path_maps = traverse(to_hash(left))
-
         right_path_maps = traverse(to_hash(right))
 
         { left: left, left_path_maps: left_path_maps,
@@ -46,8 +46,10 @@ module HDM
       end
 
       def self.to_hash(obj)
+        fhir_manager = FhirUtilities.new
+        fhir = fhir_manager.fhir
         case obj
-        when FHIR::Model
+        when fhir::Model
           obj.to_hash
         when String
           JSON.parse(obj)

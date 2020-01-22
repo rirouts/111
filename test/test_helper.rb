@@ -4,7 +4,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'hdm'
 require 'rails/test_help'
-FHIR.logger.level = 'ERROR'
+fhir_manager = FhirUtilities.new
+fhir = fhir_manager.fhir
+fhir.logger.level = 'ERROR'
 class ActionDispatch::IntegrationTest
   def generate_token(user_id)
     token = Doorkeeper::AccessToken.new(resource_owner_id: user_id)

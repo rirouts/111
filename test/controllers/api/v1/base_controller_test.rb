@@ -6,6 +6,8 @@ module Api
   module V1
     class BaseControllerTest < ActionDispatch::IntegrationTest
       test 'should be able to post EDR bundle' do
+        fhir_manager = FhirUtilities.new
+        fhir = fhir_manager.fhir
         profile = profiles(:harrys_profile)
 
         provider = providers(:bwh)
@@ -19,7 +21,7 @@ module Api
 
         assert DataReceipt.find_by(profile_id: profile.id, provider_id: provider.id)
 
-        response_bundle = FHIR::Json.from_json(@response.body)
+        response_bundle = fhir::Json.from_json(@response.body)
 
         assert_equal(1, response_bundle.entry.length)
         response_message = response_bundle.entry[0].resource
@@ -29,7 +31,7 @@ module Api
       end
 
       def load_bundle(name)
-        File.read("./test/fixtures/files/bundles/#{name}.json")
+        File.read("./test/fixtures/dstu2_files/bundles/#{name}.json")
       end
 
       def generate_application(provider)

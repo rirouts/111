@@ -5,7 +5,6 @@ require 'test_helper'
 module Api
   module V1
     class PatientsControllerTest < ActionDispatch::IntegrationTest
-
       fhir_manager = FhirUtilities.new
       fhir = fhir_manager.fhir
 

@@ -4,7 +4,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'hdm'
 require 'rails/test_help'
-FHIR.logger.level = 'ERROR'
+fhir_manager = FhirUtilities.new
+fhir = fhir_manager.fhir
+fhir.logger.level = 'ERROR'
 class ActionDispatch::IntegrationTest
   def generate_token(user_id)
     token = Doorkeeper::AccessToken.new(resource_owner_id: user_id)
@@ -26,8 +28,9 @@ module ResourceTestHelper
     end
   end
 
+  # Reads a test file from the fixtures data.
   def read_test_file(file)
-    File.read(File.join('./test/fixtures/files', file))
+    File.read(File.join('./test/fixtures/dstu2_files', file))
   end
 
   def parse_test_file(file)

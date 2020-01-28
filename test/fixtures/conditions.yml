@@ -8,8 +8,8 @@ uncombable_hair_syndrome:
               "clinicalStatus": "active",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2001-01-16T21:03:10-05:00",
-              "assertedDate": "2001-01-16T21:03:10-05:00",
-              "subject": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
+              "dateRecorded": "2001-01-16T21:03:10-05:00",
+              "patient": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
   version: 1
 
 struck_by_duck:
@@ -23,8 +23,8 @@ struck_by_duck:
               "verificationStatus": "confirmed",
               "onsetDateTime": "2008-01-08T21:03:10-05:00",
               "abatementDateTime": "2012-02-07T21:03:10-05:00",
-              "assertedDate": "2008-01-08T21:03:10-05:00",
-              "subject": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
+              "dateRecorded": "2008-01-08T21:03:10-05:00",
+              "patient": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
   version: 1
 
 
@@ -39,6 +39,6 @@ waterskis_on_fire:
               "verificationStatus": "confirmed",
               "onsetDateTime": "2011-11-18T21:03:10-05:00",
               "abatementDateTime": "2011-12-18T21:03:10-05:00",
-              "assertedDate": "2011-11-18T21:03:10-05:00",
-              "subject": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
+              "dateRecorded": "2011-11-18T21:03:10-05:00",
+              "patient": {"reference": "Patient/b4d4b13e-f6e0-4fa8-bd6b-51e9ff1c2e71"}}'
   version: 1

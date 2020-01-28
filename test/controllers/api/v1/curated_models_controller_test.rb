@@ -15,13 +15,15 @@ module Api
       end
 
       test 'user should be able to get conditions for their profile via FHIR API' do
+        fhir_manager = FhirUtilities.new
+        fhir = fhir_manager.fhir
         user = users(:harry)
         token = generate_token(user.id)
 
         get '/api/v1/Condition', params: { access_token: token.token }
         assert_response :success
 
-        bundle = FHIR::Json.from_json(@response.body)
+        bundle = fhir::Json.from_json(@response.body)
         assert_not_nil(bundle)
         assert_equal(2, bundle.entry.size)
 

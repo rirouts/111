@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_191432) do
+ActiveRecord::Schema.define(version: 2020_11_06_145542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,9 +386,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_191432) do
     t.string "provider_resource_version"
     t.string "fhir_version"
     t.boolean "merged"
-    t.boolean "boolean"
     t.jsonb "resource"
-    t.jsonb "jsonb"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["data_receipt_id"], name: "index_resource_histories_on_data_receipt_id"
@@ -406,9 +404,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_191432) do
     t.string "provider_resource_version", null: false
     t.string "data_specification_version", default: "", null: false
     t.boolean "merged", default: false, null: false
-    t.boolean "boolean", default: false, null: false
     t.jsonb "resource"
-    t.jsonb "jsonb"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["data_receipt_id"], name: "index_resources_on_data_receipt_id"

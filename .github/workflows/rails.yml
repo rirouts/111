@@ -16,6 +16,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      DB_HOST: localhost
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container

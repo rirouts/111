@@ -42,10 +42,6 @@ jobs:
         with:
           ruby-version: 2.6.8
           bundler-cache: true
-      - name: Create database
-        env:
-          PGPASSWORD: postgres
-        run: psql -c 'create database health-data-manager_test;' -h localhost -p 5432 -U postgres
       - name: Set up database
         run: RAILS_ENV=test bundle exec rake db:create
       - name: Run tests

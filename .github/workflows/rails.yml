@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Ruby
+name: Ruby on Rails Tests
 
 on:
   push:
@@ -38,11 +38,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
-        uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.8
-      - name: Install dependencies
-        run: bundle install
+          bundler-cache: true
       - name: Create database
         run: psql -c 'create database health-data-manager_test;' -U postgres
       - name: Set up database

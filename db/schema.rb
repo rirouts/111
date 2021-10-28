@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_20_161135) do
+ActiveRecord::Schema.define(version: 2019_11_22_191432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,16 @@ ActiveRecord::Schema.define(version: 2019_05_20_161135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_medication_administrations_on_profile_id"
+  end
+
+  create_table "medication_orders", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.string "resource_id", null: false
+    t.jsonb "resource"
+    t.string "version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_medication_orders_on_profile_id"
   end
 
   create_table "medication_requests", force: :cascade do |t|
@@ -407,6 +417,13 @@ ActiveRecord::Schema.define(version: 2019_05_20_161135) do
     t.index ["user_id"], name: "index_resources_on_user_id"
   end
 
+  create_table "uploaded_documents", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_uploaded_documents_on_profile_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -460,4 +477,5 @@ ActiveRecord::Schema.define(version: 2019_05_20_161135) do
   add_foreign_key "resources", "data_receipts"
   add_foreign_key "resources", "profiles"
   add_foreign_key "resources", "providers"
+  add_foreign_key "uploaded_documents", "profiles"
 end

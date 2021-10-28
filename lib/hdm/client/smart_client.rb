@@ -40,7 +40,7 @@ module HDM
 
         jwt = JWT.decode(token, nil, false)
         payload = jwt[0]
-        payload['profile'].gsub('Patient/', '')
+        payload['profile'].gsub('^Patient/', '')
       end
 
       def sync_profile(profile_provider)
@@ -85,6 +85,9 @@ module HDM
         types = []
         client_capability_statement.rest[0].resource.each do |r|
           types << "#{prefix}::#{r.type}".constantize if r.type != 'Patient' && r.searchParam.find { |sp| sp.name == 'patient' }
+        rescue NameError
+          # If this fails, just ignore it
+          nil
         end
         types.empty? ? defaults : types
       end

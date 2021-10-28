@@ -15,6 +15,7 @@ class Profile < ApplicationRecord
   has_many :goals, dependent: :destroy
   has_many :immunizations, dependent: :destroy
   has_many :medication_administrations, dependent: :destroy
+  has_many :medication_orders, dependent: :destroy
   has_many :medication_requests, dependent: :destroy
   has_many :medication_statements, dependent: :destroy
   has_many :observations, dependent: :destroy
@@ -29,6 +30,8 @@ class Profile < ApplicationRecord
   # resources are the raw resources that are created from transactions, they
   # do not equate to the currated data models resources
   has_many :resources
+  # These are the non-FHIR documents uploaded by the user
+  has_many :uploaded_documents
 
   def has_provider?(provider_id)
     return false if provider_id.nil?
@@ -40,7 +43,7 @@ class Profile < ApplicationRecord
     types = %i[ allergy_intolerances care_plans conditions devices
                 documents encounters goals immunizations
                 medication_administrations medication_requests
-                medication_statements observations procedures ]
+                medication_statements medication_orders observations procedures ]
     types.each do |t|
       rs_by_type = send(t)
       rs_by_type.destroy_all
@@ -54,7 +57,7 @@ class Profile < ApplicationRecord
     types = %i[allergy_intolerances care_plans conditions devices
                documents encounters goals immunizations
                medication_administrations medication_requests
-               medication_statements observations procedures
+               medication_statements medication_orders observations procedures
                explanation_of_benefits coverages claims ]
 
     rs = []
@@ -68,7 +71,9 @@ class Profile < ApplicationRecord
   end
 
   def to_patient
-    FHIR::Patient.new(id: id,
+    fhir_manager = FhirUtilities.new
+    fhir = fhir_manager.fhir
+    fhir::Patient.new(id: id,
                       name: [{ given: [first_name],
                                family: last_name,
                                use: 'official' }],
@@ -101,6 +106,8 @@ class Profile < ApplicationRecord
   def wrap_in_bundle(results)
     # get just the FHIR resources, but then wrap it in an Entry.
     resources = results.map { |r| { resource: r.fhir_model.to_hash } }
-    FHIR::Bundle.new(type: 'searchset', entry: resources)
+    fhir_manager = FhirUtilities.new
+    fhir = fhir_manager.fhir
+    fhir::Bundle.new(type: 'searchset', entry: resources)
   end
 end

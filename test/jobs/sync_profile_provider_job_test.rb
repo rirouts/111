@@ -6,11 +6,11 @@ class SyncProfileProviderJobTest < ActiveJob::TestCase
   include ActionCable::TestHelper
 
   def load_bundle(name)
-    File.read(File.join(__dir__, "../fixtures/files/bundles/#{name}.json"))
+    File.read(File.join(__dir__, "../fixtures/dstu2_files/bundles/#{name}.json"))
   end
 
   test 'that profile provider is synced' do
-    fake_body = File.read(File.join(__dir__, '../fixtures/files/ouath_capability_statement.json'))
+    fake_body = File.read(File.join(__dir__, '../fixtures/dstu2_files/ouath_capability_statement.json'))
     FakeWeb.register_uri(:post, %r{http://partners.com/oauth/token}, body: { access_token: 'new token', expires_in: 3600 }.to_json, content_type: 'application/json')
     FakeWeb.register_uri(:get, %r{http://partners.com/smart/metadata}, body: fake_body, content_type: 'application/json')
     FakeWeb.register_uri(:get, %r{http://partners.com/smart/Observation}, body: load_bundle('search-set'), content_type: 'application/json')

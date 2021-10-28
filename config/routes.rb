@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
       curated_models = %i[allergy_intolerances care_plans conditions
                           devices documents encounters goals immunizations
-                          medication_administrations medication_requests medication_statements
+                          medication_administrations medication_requests medication_statements medication_orders
                           observations practitioners procedures]
 
       resources :profiles do
@@ -36,6 +36,16 @@ Rails.application.routes.draw do
       # curated models as FHIR
       curated_models.each do |cm|
         resources cm.to_s.classify.to_sym, controller: cm, only: %i[index show]
+      end
+    end
+    # A custom namespace for the pilot API that's being used to test new features
+    namespace :pilot do
+      # The uploaded documents resource current exists outside of the main API
+      # Currently they can't be updated, but can be created, read, and deleted.
+      resources :uploaded_documents, except: %i[edit update] do
+        member do
+          get 'download'
+        end
       end
     end
   end

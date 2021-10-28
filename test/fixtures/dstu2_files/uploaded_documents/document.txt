@@ -1,0 +1,5 @@
+This is a simple uploaded document.
+
+It is just a text file.
+
+It does nothing complicated.

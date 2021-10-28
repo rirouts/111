@@ -7,6 +7,9 @@ module HDM
     class GenericMatcherTest < ActiveSupport::TestCase
       include ResourceTestHelper
 
+      fhir_manager = FhirUtilities.new
+      fhir = fhir_manager.fhir
+
       test 'should correctly identify matching resources' do
         profile = profiles(:jills_profile)
         relationship = profile.conditions
@@ -70,7 +73,7 @@ module HDM
 
         outcome = GenericMatcher.deconflict(resource, match)
 
-        assert outcome.is_a? FHIR::OperationOutcome
+        assert outcome.is_a? fhir::OperationOutcome
         assert_equal(1, outcome.issue.length)
         issue = outcome.issue[0]
         assert_equal(1, issue.location.length) # only 1 field mismatched

@@ -12,8 +12,8 @@ first_dr_1:
               "clinicalStatus": "active",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2001-01-16T21:03:10-05:00",
-              "assertedDate": "2001-01-16T21:03:10-05:00",
-              "subject": {"reference": "some-internal-id-here"}}'
+              "dateRecorded": "2001-01-16T21:03:10-05:00",
+              "patient": {"reference": "some-internal-id-here"}}'
 
 perfect_match_resource:
   id: 7
@@ -29,8 +29,8 @@ perfect_match_resource:
               "clinicalStatus": "active",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2001-01-16T21:03:10-05:00",
-              "assertedDate": "2001-01-16T21:03:10-05:00",
-              "subject": {"reference": "some-internal-id-here"}}'
+              "dateRecorded": "2001-01-16T21:03:10-05:00",
+              "patient": {"reference": "some-internal-id-here"}}'
 
 diff_date_perfect_match_resource:
   id: 8
@@ -46,8 +46,8 @@ diff_date_perfect_match_resource:
               "clinicalStatus": "active",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2018-01-16T21:03:10-05:00",
-              "assertedDate": "2018-01-16T21:03:10-05:00",
-              "subject": {"reference": "some-internal-id-here"}}'
+              "dateRecorded": "2018-01-16T21:03:10-05:00",
+              "patient": {"reference": "some-internal-id-here"}}'
 
 imperfect_match_resource:
   id: 17
@@ -63,8 +63,8 @@ imperfect_match_resource:
               "clinicalStatus": "inactive",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2001-01-16T21:03:10-05:00",
-              "assertedDate": "2001-01-16T21:03:10-05:00",
-              "subject": {"reference": "some-internal-id-here"}}'
+              "dateRecorded": "2001-01-16T21:03:10-05:00",
+              "patient": {"reference": "some-internal-id-here"}}'
 
 unmatching_resource:
   id: 22
@@ -80,8 +80,8 @@ unmatching_resource:
               "clinicalStatus": "active",
               "verificationStatus": "confirmed",
               "onsetDateTime": "2010-07-26T01:44:00-05:00",
-              "assertedDate": "2018-01-01T21:03:10-05:00",
-              "subject": {"reference": "some-internal-id-here"}}'
+              "dateRecorded": "2018-01-01T21:03:10-05:00",
+              "patient": {"reference": "some-internal-id-here"}}'
 
 second_dr_1:
   id: 2

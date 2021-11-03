@@ -4,8 +4,8 @@ class FhirUtilities
   attr_accessor :fhir, :fhir_string
 
   def initialize
-    # This branch is specifically for DSTU2
-    @fhir = FHIR::DSTU2
+    # This branch is specifically for FHIR R4
+    @fhir = FHIR
     @fhir_string = @fhir.name
   end
 end

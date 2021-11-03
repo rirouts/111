@@ -34,8 +34,8 @@ gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_securi
 gem 'rails_email_validator'
 # These gems currently held back for potential compatibility issues - haven't verified that the latest versions work yet
 gem 'doorkeeper', '~> 4.4'
-gem 'fhir_client', '~> 3.0.5'
-gem 'fhir_models', '~> 3.0.3'
+gem 'fhir_client', '~> 4.0'
+gem 'fhir_models', '~> 4.0'
 gem 'rack-cors', require: 'rack/cors'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
